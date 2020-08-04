@@ -1,5 +1,7 @@
 package com.example.demo.Repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +15,11 @@ public interface ProjectRepository extends CrudRepository<Project,Long> {
 	// gets all the projects from the db
 	@Override
 	Iterable<Project> findAllById(Iterable<Long> iterable);
+	
+	Project findByProjectIdentifier(String projectIdentifier);
+	
+	Iterable<Project> findAll();
+	
+
 	
 }

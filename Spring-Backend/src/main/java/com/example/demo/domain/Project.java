@@ -2,17 +2,21 @@ package com.example.demo.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -59,6 +63,18 @@ public class Project {
 	@JsonFormat(pattern="yyyy-mm-dd")
 	private Date updated_at;
 	
+	
+	public BackLog getBackLog() {
+		return backLog;
+	}
+
+	public void setBackLog(BackLog backLog) {
+		this.backLog = backLog;
+	}
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project") //cascade means if backlog is deleted , all references are deleted
+	@JsonIgnore
+	private BackLog backLog;
+
 	// constructor must be public  for the other clas to call this
 	public Project()
 	{	
